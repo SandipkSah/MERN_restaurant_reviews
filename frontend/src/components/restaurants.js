@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import RestaurantDataService from "../services/restaurant";
+import RestaurantDataService from "../context/RestaurantContext";
 import { Link } from "react-router-dom";
+// import { log } from "console";
 
 const Restaurant = props => {
   const initialRestaurantState = {
@@ -13,10 +14,11 @@ const Restaurant = props => {
   const [restaurant, setRestaurant] = useState(initialRestaurantState);
 
   const getRestaurant = id => {
+    console.log("get restaurant with id ", id)
     RestaurantDataService.get(id)
       .then(response => {
+        console.log("///////////////////////",response.data);
         setRestaurant(response.data);
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
@@ -49,6 +51,7 @@ const Restaurant = props => {
           <h5>{restaurant.name}</h5>
           <p>
             <strong>Cuisine: </strong>{restaurant.cuisine}<br/>
+            {console.log("jjjjjjjjjjjj", restaurant.address)}
             <strong>Address: </strong>{restaurant.address.building} {restaurant.address.street}, {restaurant.address.zipcode}
           </p>
           <Link to={"/restaurants/" + props.match.params.id + "/review"} className="btn btn-primary">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RestaurantDataService from "../services/restaurant";
+import RestaurantDataService from "../context/RestaurantContext";
 import { Link } from "react-router-dom";
 
 const RestaurantsList = props => {
@@ -34,8 +34,7 @@ const RestaurantsList = props => {
     RestaurantDataService.getAll()
       .then(response => {
         console.log(response.data);
-        setRestaurants(response.data.restaurants);
-        
+        setRestaurants(response.data.restaurants); 
       })
       .catch(e => {
         console.log(e);
@@ -47,7 +46,6 @@ const RestaurantsList = props => {
       .then(response => {
         console.log(response.data);
         setCuisines(["All Cuisines"].concat(response.data));
-        
       })
       .catch(e => {
         console.log(e);
@@ -152,7 +150,7 @@ const RestaurantsList = props => {
             <div className="col-lg-4 pb-1">
               <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{restaurant.name}</h5>
+                  <h5 className="card-title" >{restaurant.name}</h5>
                   <p className="card-text">
                     <strong>Cuisine: </strong>{restaurant.cuisine}<br/>
                     <strong>Address: </strong>{address}
@@ -168,8 +166,6 @@ const RestaurantsList = props => {
             </div>
           );
         })}
-
-
       </div>
     </div>
   );
